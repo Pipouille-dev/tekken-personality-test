@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test de personnalité Tekken</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js v4 -->
+  <style>
+    body { font-family: Arial, sans-serif; background:#050814; color:#f5f5f5; }
+    .app { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .question-box { margin-top: 20px; }
+    .answers button {
+      display:block;
+      width:100%;
+      margin:8px 0;
+      padding:10px;
+      background:#111522;
+      color:#f5f5f5;
+      border:1px solid #333;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .answers button:hover {
+      background:#1b2134;
+    }
+    .answers button div {
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:10px;
+    }
+    .answers button img {
+      max-height:150px;
+      border-radius:4px;
+    }
+	.answers button {
+  text-align: left;
+}
+.answers button {
+  font-size: 18px;        /* plus gros texte de réponse */
+  line-height: 1.4;
+}
+#question-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+#question-text {
+  font-size: 20px;        /* plus gros que les réponses */
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #ffcc88;         /* couleur Tekken-ish pour mettre en avant */
+}
+/* Style de base du bloc question */
+.question-box {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+/* Thèmes : couleurs + possibilité d’image de fond */
+.theme-cleanliness {
+  border: 2px solid #3aa8ff;
+  background: rgba(10, 40, 80, 0.8);
+ /* background-image: url("img/placeholder.png"); */
+  background-size: cover;
+  background-position: center;
+}
+
+.theme-playstyle {
+  border: 2px solid #ff9a3a;
+  background: rgba(80, 40, 10, 0.8);
+  /* background-image: url("img/playstyle-bg.png"); */
+  background-size: cover;
+  background-position: center;
+}
+
+.theme-rage {
+  border: 2px solid #ff3a3a;
+  background: rgba(80, 10, 10, 0.8);
+  /* background-image: url("img/rage-bg.png"); */
+  background-size: cover;
+  background-position: center;
+}
+
+.theme-kindness {
+  border: 2px solid #ffd93a;
+  background: rgba(80, 70, 10, 0.8);
+  /* background-image: url("img/kindness-bg.png"); */
+  background-size: cover;
+  background-position: center;
+}
+#corner-logo {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 300px;        /* ajuste la taille comme tu veux */
+  height: auto;
+  z-index: 1000;
+  pointer-events: none; /* pour ne pas gêner les clics */
+}
+#corner-author {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff6994;      /* couleur qui ressort bien */
+  z-index: 1000;
+}
+.desc-cleanliness { color: #3aa8ff; }  /* bleu */
+.desc-playstyle   { color: #ff9a3a; }  /* orange */
+.desc-rage        { color: #ff3a3a; }  /* rouge */
+.desc-kindness    { color: #ffd93a; }  /* jaune */
+.desc-intellect   { color: #3aff7a; }  /* vert */
+.desc-global      { color: #ffffff; }  /* global en blanc */
+
+.theme-intellect {
+  border: 2px solid #3aff7a;
+  background: rgba(10, 80, 40, 0.8);
+  /* background-image: url("img/intellect-bg.png"); */
+  background-size: cover;
+  background-position: center;
+}
+
+    #result { margin-top: 40px; }
+    canvas { max-width: 600px; margin: 0 auto; }
+    #global-description {
+      margin-top: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6994;
+    }
+  </style>
+</head>
+<body>
+<body>
+  <img src="img/pekken.png" alt="" id="corner-logo">
+<div id="corner-author">Par Pipouille</div>
+  <div class="app">
+
+
+  <div class="app">
+    <h1>Test de personnalité Tekken</h1>
+    <div id="config-info"></div>
+
+    <div id="quiz">
+  <div class="question-box" id="question-box">
+        <h2 id="question-title"></h2>
+        <p id="question-text"></p>
+        <div class="answers" id="answers"></div>
+        <p id="progress"></p>
+      </div>
+    </div>
+
+    <div id="result" style="display:none;">
+      <h2>Résultats</h2>
+      <p id="stats-text"></p>
+      <p id="global-description"></p>
+      <canvas id="statsChart"></canvas>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

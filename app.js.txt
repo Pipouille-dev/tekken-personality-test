@@ -1,0 +1,460 @@
+console.log("app.js chargé");
+
+// Configuration du test : 6 questions par thème
+const config = {
+  themes: [
+    { key: "cleanliness", label: "Propreté" },
+    { key: "playstyle",   label: "Style de jeu" },
+    { key: "rage",        label: "Rage" },
+    { key: "kindness",    label: "Bienveillance" },
+    { key: "intellect",   label: "Intelligence" },
+  ],
+  questions: {
+    cleanliness: [
+      {
+        text: "Après une session classée, tu ranges ton stick/manette…",
+        answers: [
+          { label: "Toujours, ptite lingette et tout dans le bueno.", delta:  +2 },
+          { label: "De temps en temps, quand j’y pense.",             delta:   0 },
+          { label: "Jamais, il traîne par terre comme une Xiaoyu en AOP.", delta: -2 },
+          { label: "Renifler le stick fait des chip damages",         delta:  -5 },
+        ],
+      },
+      {
+        text: "Ton setup ressemble plutôt à…",
+        answers: [
+          { label: "Mainstage de l'evo c'est carré.", delta: +2 },
+          { label: "Un peu le bazar tu connais...",   delta:  0 },
+          { label: "Tasse non vide, mouchoires, rhum banane ou tout autre chose qui n'a rien a faire ici", delta: -2 },
+          { label: "Setup balcon du DUC Mathieu Ayatsuji Rosfield",   delta: -5 },
+        ],
+      },
+      {
+        text: "Tu as combien d'heures de jeu",
+        answers: [
+          { label: "250 ou moins, c'est mignon.",                        delta: +2 },
+          { label: "500 ou moins, encore sauvable.",                     delta:  0 },
+          { label: "T'as passé les 1000, humain investi bientôt perdu.", delta: -2 },
+          { label: "t'as passé les 2000, personne ténébreuse.",          delta: -5 },
+          { label: "t'as passé les 3000, mage noir + chômage.",          delta: -8 },
+        ],
+      },
+      {
+        text: "Votre plus longue session de ranked a duré :",
+        answers: [
+          { label: "Moins d'une heure",            delta: +2 },
+          { label: "Environ 2h",                   delta:  0 },
+          { label: "Environ 3 ou 4 heures",        delta: -2 },
+          { label: "6 heures ou plus",             delta: -5 },
+        ],
+      },
+      {
+        text: "Après une session Tekken votre chambre sent :",
+        answers: [
+          { label: "La brise fraîche du matin", delta: +2 },
+          { label: "Ça sent le meuble",         delta:  0 },
+          { label: "Ça sent le saucifflard",    delta: -2 },
+          { label: "Relant aberrant de tacos 3 viandes compo merguez tenders cordon bleu sauce biggy brazil", delta: -5 },
+        ],
+      },
+      {
+        text: "Ton bureau / setup est rangé tous les combien :",
+        answers: [
+          { label: "Tous les jours, discipline Mishima.", delta: +2 },
+          { label: "Une fois par semaine.",               delta:  0 },
+          { label: "Quand je perds un pari.",             delta: -2 },
+          { label: "Jamais, c'est un stage custom Hazard On.", delta: -5 },
+        ],
+      },
+    ],
+
+    playstyle: [
+      {
+        text: "En ranked, ton style c’est plutôt…",
+        answers: [
+          { label: "Neutre propre, whiff punish, observation de l'adversaire.", delta: +2 },
+          { label: "Un petit hopkick piffé par çi par là.",                    delta:  0 },
+          { label: "Full spam snake edge / hopkick / gimmicks.",               delta: -2 },
+          { label: "Setup macabre a base d'imblocable tah Chad-Muerte Prime",  delta: -5 },
+        ],
+      },
+      {
+        text: "Qu'en est-il de votre défense ?",
+        answers: [
+          { label: "De 80 à 100, le mur.",                                      delta: +2 },
+          { label: "De 60 à 80, bloquer ne me dérange pas !",                   delta:  0 },
+          { label: "De 40 à 60, se fait counter hit launch 3x par round...",    delta: -2 },
+          { label: "De 20 à 40, I'm not holding back - Leroy Smith tu connais lahuiss", delta: -5 },
+          { label: "De 0 à 20, si t'es pas nouveau, qu'est-ce que tu fous?!?",  delta: -8 },
+        ],
+      },
+      {
+        text: "Combien de personnages maîtrisez vous ?",
+        answers: [
+          { label: "Tous, il sort quand Mokujin bordel???", delta: +10 },
+          { label: "Je peux jouer plusieurs archétypes, un peu touche à tout.", delta: +6 },
+          { label: "Je maîtrise qu'un seul archétype, si y'a pas d'electric ça dégage !", delta: +2 },
+          { label: "Loyaliste, je reste fidèle Doryah !",                       delta:  0 },
+        ],
+      },
+      {
+        text: "Votre niveau d'execution vous permet de :",
+        answers: [
+          { label: "TJU et PEWGF en détente",                                     delta: +10 },
+          { label: "Les staple combos optimisés ne me font pas peur",             delta:  +5 },
+          { label: "Pas de dingueries flashy mais efficace, je peux te step df2.", delta: +2 },
+          { label: "Je sais launch punish un hellsweep à mon prime",              delta:  0 },
+          { label: "Je joue en spécial style, le raptor combo de Hwoarang (4,4,4,4) est trop difficile pour moi.", delta: 0 },
+        ],
+      },
+      {
+        text: "Vous passez la majorité de votre temps sur le jeu à :",
+        answers: [
+          { label: "Faire des tournois",          delta: +2 },
+          { label: "Training / lab",              delta:  0 },
+          { label: "Full ranked en mode cerveau off.", delta: -2 },
+          { label: "Traîner dans le lounge a faire du tekken-ball", delta: -5 },
+        ],
+      },
+      {
+        text: "Quand tu mènes 2 rounds à 0 :",
+        answers: [
+          { label: "Tu restes sérieux, tu joues propre jusqu'au bout.", delta: +2 },
+          { label: "Tu te permets un peu de freestyle.",                delta:  0 },
+          { label: "Tu troll avec des strings et des lows unsafe.",     delta: -2 },
+          { label: "Tu full taunt / ki-charge / teabag.",               delta: -5 },
+        ],
+      },
+    ],
+
+    rage: [
+      {
+        text: "Quand tu te fais 3 perfects d’affilée…",
+        answers: [
+          { label: "Tu restes calme, et tu lock in pour le prochain match", delta: +2 },
+          { label: "Tu souffles fort, mais tu continues.",                  delta:  0 },
+          { label: "Tu hurles IRL.",                                        delta: -2 },
+          { label: "Gros plug du seigneur",                                 delta: -5 },
+        ],
+      },
+      {
+        text: "Quelle est ta réaction face à une ki-charge ?",
+        answers: [
+          { label: "Haha, intéressant hâte d'en découdre !",                                 delta: +2 },
+          { label: "Il veut quoi ce suce mange gauffre ?",                                   delta:  0 },
+          { label: "Insulte + cancel",                                                       delta: -2 },
+          { label: "Ah ouais tu ki tcharge ? Que des toxics... Signalement + joueur bloqué", delta: -5 },
+        ],
+      },
+      {
+        text: "Est-ce que tu joues Bryan ou Kazuya ?",
+        answers: [
+          { label: "Oui je main un des deux ^^", delta: -5 },
+          { label: "J'ai déjà essayé de les jouer.", delta:  0 },
+          { label: "Jamais je ne suis pas raciste", delta: +2 },
+        ],
+      },
+      {
+        text: "As-tu déjà tellement ragé que ton entourage t'a fait une remarque à ce sujet ?",
+        answers: [
+          { label: "Oui", delta: -3 },
+          { label: "Non", delta: +1 },
+        ],
+      },
+      {
+        text: "Quelle est votre nombre de joueurs bloqués ?",
+        answers: [
+          { label: "Zéro, je n'ai pas d'ennemis.",                   delta: +2 },
+          { label: "Quelques joueurs Law 2 barres 8 frames de rollback", delta:  0 },
+          { label: "J'ai bloqué beaucoup de gens qui lag et qui m'ont 3 zéro sec.", delta: -2 },
+          { label: "J'ai déjà complété le blockédex plusieurs fois.", delta: -5 },
+        ],
+      },
+      {
+        text: "En ayant un beef avec un joueur j'ai déjà :",
+        answers: [
+          { label: "Calmé le jeu, on est là pour rigoler et prendre du plaisir !", delta: +2 },
+          { label: "Je le ping et je lui envoi Gg ^^",                             delta:  0 },
+          { label: "Petit recadrage textuel y'a pas le choix.",                    delta: -2 },
+          { label: "Insulte de masse + demande de FT immédiate.",                  delta: -5 },
+        ],
+      },
+    ],
+
+    kindness: [
+      {
+        text: "Après un combat serré, tu…",
+        answers: [
+          { label: "Rematch let's go on aime les combats stylé", delta: +2 },
+          { label: "Rien de spécial, tu rematch.",               delta:  0 },
+          { label: "Tu envoies un message sel/tilt.",            delta: -2 },
+          { label: "Ft1",                                        delta: -5 },
+          { label: "Bloqué",                                     delta: -8 },
+        ],
+      },
+      {
+        text: "Un nouveau joueur te contacte tu :",
+        answers: [
+          { label: "Le prend sous ton aile et fait de lui un GOAT", delta: +3 },
+          { label: "T'acceptes un ft + quelques conseils.",         delta: +1 },
+          { label: "Désolé j'ai pas le temps fratello.",            delta: -2 },
+          { label: "Tu lui fait payer pour tes conseils.",          delta: -5 },
+        ],
+      },
+      {
+        text: "Ton ami est tilté en vocal tu lui dit :",
+        answers: [
+          { label: "Arrête toi là c'est pour ton bien. Tu t'es bien débrouillé.", delta: +2 },
+          { label: "Tu veux vraiment continuer ?",                               delta:  0 },
+          { label: "Tu peux pas rester en négatif quand même.",                  delta: -2 },
+          { label: "GG pour le Tekken Emperor !(Il était Tekken God avant de lancer)", delta: -5 },
+        ],
+      },
+      {
+        text: "Pour la communauté tu as déjà :",
+        answers: [
+          { label: "Organisé un évènement spécial et rassembler des joueurs", delta: +2 },
+          { label: "Organisé un FT entre deux joueurs",                       delta:  0 },
+          { label: "Rejoint un tournoi et DQ",                                delta: -2 },
+          { label: "Ramené un de tes amis sur le jeu",                        delta: -5 },
+        ],
+      },
+      {
+        text: "Ton adversaire est AFK en début de round tu :",
+        answers: [
+          { label: "Attends qu'il revienne, on n'est pas pressé.", delta: +2 },
+          { label: "10sc de pitié après ça lui casses les jambes.", delta:  0 },
+          { label: "Imblocable dès que tu as remarqué",             delta: -2 },
+        ],
+      },
+      {
+        text: "Quand tu gagnes 3-0 :",
+        answers: [
+          { label: "Tu proposes rematch, c'était stylé.", delta: +2 },
+          { label: "Tu quittes sans rien dire.",          delta:  0 },
+          { label: "Tu tbag / ki charge avant de quitter.", delta: -2 },
+          { label: "Tu envoies un message \"easy\".",      delta: -5 },
+        ],
+      },
+    ],
+
+    intellect: [
+      {
+        text: "Avant de tryhard un personnage, tu…",
+        answers: [
+          { label: "Lis la frame data et regardes des guides.", delta: +2 },
+          { label: "Regardes juste un ou deux combos sur YouTube.", delta:  0 },
+          { label: "Tu aprends les flowcharts et les douilles.",  delta: -2 },
+          { label: "Spécial Style",                               delta: -5 },
+        ],
+      },
+      {
+        text: "Le B3 de Hwoarang est :",
+        answers: [
+          { label: "Est un move launch punissable",              delta: +2 },
+          { label: "On peut le punir",                           delta:  0 },
+          { label: "Safe on block",                              delta: -2 },
+          { label: "Tu veux parler de la Left Plasma Blade ? C'est +5 on block", delta: -5 },
+        ],
+      },
+      {
+        text: "Tu te fais laver par un matchup que tu ne connais pas tu :",
+        answers: [
+          { label: "Tu fonces en rediff voir tes erreurs.",             delta: +2 },
+          { label: "Rematch sans prise de tête, je vais peut-être m'adapter", delta:  0 },
+          { label: "Aller on piff.",                                    delta: -2 },
+          { label: "Faut nerf ce coup broken ! (Tu parles du down2,3 de Law)", delta: -5 },
+        ],
+      },
+      {
+        text: "Pour toi la frame data c'est :",
+        answers: [
+          { label: "Tu sais quand duck et step parfaitement, quel beau gosse (coucou Mathieu)", delta: +2 },
+          { label: "Incontournable tu connais tous les moves launch punissable",                delta:  0 },
+          { label: "Laborieux, big flemme d'apprendre",                                        delta: -2 },
+          { label: "Hopkick en -9",                                                            delta: -5 },
+        ],
+      },
+      {
+        text: "L'adversaire abuse d'un knowledge check tu :",
+        answers: [
+          { label: "Reconnait la douille et tu t'adaptes",             delta: +2 },
+          { label: "Tu trouves une solution aproximative (Djab)",      delta:  0 },
+          { label: "Tu n'arrêtes pas de la graille, t'as capté...",    delta: -2 },
+        ],
+      },
+      {
+        text: "Quand un nouveau patch sort :",
+        answers: [
+          { label: "Tu lis les patch notes en détail.", delta: +2 },
+          { label: "Tu regardes juste une vidéo résumé.", delta:  0 },
+          { label: "Tu découvres tout en ranked, surprise.", delta: -2 },
+        ],
+      },
+    ],
+  }
+};
+
+
+// État du quiz
+let state = {
+  themeIndex: 0,
+  questionIndex: 0,
+  scores: {
+    cleanliness: 0,
+    playstyle: 0,
+    rage: 0,
+    kindness: 0,
+    intellect: 0,
+  },
+  answerCounts: {
+    cleanliness: 0,
+    playstyle: 0,
+    rage: 0,
+    kindness: 0,
+    intellect: 0,
+  }
+};
+
+const questionTitleEl = document.getElementById("question-title");
+const questionTextEl = document.getElementById("question-text");
+const answersEl = document.getElementById("answers");
+const progressEl = document.getElementById("progress");
+const resultEl = document.getElementById("result");
+const statsTextEl = document.getElementById("stats-text");
+const globalDescEl = document.getElementById("global-description");
+
+function getCurrentTheme() {
+  return config.themes[state.themeIndex];
+}
+
+function getCurrentQuestion() {
+  const theme = getCurrentTheme();
+  return config.questions[theme.key][state.questionIndex];
+}
+
+function showQuestion() {
+  const theme = getCurrentTheme();
+  const q = getCurrentQuestion();
+
+  questionTitleEl.textContent = `Thème : ${theme.label}`;
+  questionTextEl.textContent = q.text;
+
+  answersEl.innerHTML = "";
+  q.answers.forEach(answer => {
+    const btn = document.createElement("button");
+    btn.textContent = answer.label;
+    btn.addEventListener("click", () => {
+      applyAnswer(theme.key, answer.delta);
+      nextQuestion();
+    });
+    answersEl.appendChild(btn);
+  });
+
+  const totalQuestionsPerTheme = config.questions[theme.key].length;
+  const globalIndex =
+    state.themeIndex * totalQuestionsPerTheme + state.questionIndex + 1;
+  const totalQuestions =
+    totalQuestionsPerTheme * config.themes.length;
+
+  progressEl.textContent = `Question ${globalIndex}/${totalQuestions}`;
+}
+
+function applyAnswer(themeKey, delta) {
+  state.scores[themeKey] += delta;
+  state.answerCounts[themeKey] += 1;
+}
+
+function nextQuestion() {
+  const theme = getCurrentTheme();
+  const questionsForTheme = config.questions[theme.key];
+
+  if (state.questionIndex < questionsForTheme.length - 1) {
+    state.questionIndex += 1;
+  } else {
+    state.themeIndex += 1;
+    state.questionIndex = 0;
+  }
+
+  if (state.themeIndex >= config.themes.length) {
+    finishQuiz();
+  } else {
+    showQuestion();
+  }
+}
+
+function finishQuiz() {
+  document.getElementById("quiz").style.display = "none";
+  resultEl.style.display = "block";
+
+  // Test : affichage direct, sans calculs
+  document.querySelector("#global-description").innerText =
+    "TEST : si tu vois cette phrase, la description fonctionne.";
+
+  // On peut temporairement commenter le reste
+  // renderRadarChart([], []);
+}
+
+
+
+
+let chartInstance = null;
+
+function renderRadarChart(labels, data) {
+  const ctx = document.getElementById("statsChart");
+
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  chartInstance = new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Stats moyennes Tekken 8",
+          data: data,
+          fill: true,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          pointBackgroundColor: "rgba(255, 99, 132, 1)",
+          pointBorderColor: "#fff",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          angleLines: { color: "#444" },
+          grid: { color: "#444" },
+          suggestedMin: -5,
+          suggestedMax: 10,
+          ticks: { display: true, color: "#ccc" },
+          pointLabels: { color: "#fff" },
+        },
+      },
+      plugins: {
+        legend: { labels: { color: "#fff" } },
+      },
+    },
+  });
+}
+
+// Description globale en fonction de la moyenne
+function getGlobalDescription(avg) {
+  if (avg >= 5) {
+    return "Pur joueur Tekken, neutre propre, vibes e-sport, tu peux coacher les autres.";
+  } else if (avg >= 2) {
+    return "Globalement sain, avec quelques ténèbres assumées. Joueur équilibré.";
+  } else if (avg >= 0) {
+    return "Mi-ange mi-démon, tu oscilles entre propre et giga toxique selon l’humeur.";
+  } else if (avg >= -2) {
+    return "Tu es dans la sauce : rage, douilles et setups macabres, la pureté est en PLS.";
+  }
+  return "Entité ténébreuse ultime, boss final des ranked, prêtre du Special Style.";
+}
+
+// Initialisation
+showQuestion();
