@@ -161,7 +161,7 @@ const config = {
         text: "Est-ce que tu joues Bryan ou Kazuya ?",
         answers: [
           { label: "Oui je main un des deux ^^", delta:-3, image:"img/superchad.png" },
-		  { label: "Non ils me gavent à parler de la difficulté de leur perso alors qu'ils sont pas si dur",                        delta: -1, image:"img/res.gif" },
+		  { label: "Non ils me gavent à parler de la difficulté de leur perso alors qu'ils sont pas si dur",                        delta: -1, image:"img/yap.gif" },
           { label: "J'ai déjà essayé de les jouer.", delta: 0, image:"img/angdem.png" },
 		  { label: "Non mais gros respect aux main Kaz/Bryan",                        delta: +1, image:"img/res.gif" },
           { label: "Jamais je ne suis pas raciste.",  delta:+3, image:"img/son.gif" },
