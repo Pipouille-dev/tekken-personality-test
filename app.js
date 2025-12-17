@@ -588,9 +588,9 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   if (intel >= 21) {
     intelText = "Arslan Ash a appris le korean back dash pour te fuir";
   } else if (intel >= 14) {
-    intelText = "Bon sens du jeu, tu connais les fondamentaux, tu ne te fais pas mix par Clive avec son 4,4.";
+    intelText = "Bon sens du jeu, tu connais les fondamentaux, tu ne te fais pas mix par Mathieu avec son 4,4.";
   } else if (intel >= 7) {
-    intelText = "Tu es imprévisible, même toi tu ne sais pas ce que tu fais.";
+    intelText = "Tu te fais frametrap par Mathieu, 19 ans, équipier polyvalent chez McDo.";
   } else {
     intelText = "T'arrives comme SDM dans son bolide allemand t'es fort pour dire de la merde, pas pour jouer à Tekken";
   }
