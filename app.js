@@ -532,7 +532,7 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   if (clean >= 21) {
     cleanText = "Hygiène impeccable fidèle disciple de Fabio Lanzoni.";
   } else if (clean >= 14) {
-    cleanText = "Globalement propre, même si quelques bières traînent entre deux sessions tu es normal.";
+    cleanText = "Globalement propre, même si quelques boissons traînent entre deux sessions tu es normal.";
   } else if (clean >= 7) {
     cleanText = "Ton environnement commence à sentir le zgeg.";
   } else {
@@ -586,9 +586,9 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   const intel = themeScores25.intellect;
   let intelText;
   if (intel >= 21) {
-    intelText = "Connaissance du jeu monstrueuse, tu parles frame data mieux que ta langue natale.";
+    intelText = "Arslan Ash a appris le korean back dash pour te fuir";
   } else if (intel >= 14) {
-    intelText = "Bon sens du jeu, tu connais les fondamentaux, tu ne te fais pas mix par Mathieu avec 4,4.";
+    intelText = "Bon sens du jeu, tu connais les fondamentaux, tu ne te fais pas mix par Clive avec son 4,4.";
   } else if (intel >= 7) {
     intelText = "Tu es imprévisible, même toi tu ne sais pas ce que tu fais.";
   } else {
