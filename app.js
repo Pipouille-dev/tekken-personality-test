@@ -203,7 +203,7 @@ const config = {
         answers: [
           { label: "Rematch let's go on aime les combats compliqués !", delta:+3, image:"img/mcgregor.gif" },
           { label: "Rien de spécial, tu rematch.",               delta: +1, image:"img/cat.png" },
-          { label: "Tu envoies un message de sel/tilt.",            delta:-1, image:"img/rb.png" },
+          { label: "Tu envoies un message de sel/tilt.",            delta:-1, image:"img/rb.gif" },
           { label: "Ft1.",                                        delta:-2, image:"img/pant.gif" },
           { label: "Bloqué.",                                     delta:-3, image:"img/block.gif" },
         ],
