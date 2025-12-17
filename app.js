@@ -596,11 +596,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   }
   parts.push(`<span class="desc-intellect">${intelText}</span>`);
 
-  // Phrase globale
+  // Score global
   let globalTag;
   if (globalAvg >= 21) {
     globalTag = "Tu es un joueur complet, redoutable mais clean, un bijou de la communauté.";
-  } else if (globalAvg >= 14) {
+  } else if (globalAvg >= 15) {
     globalTag = "Tu fais parler de toi, en bien ou en mal, on te connait pour ta \"spéciale\" postule chez les Suce Mange Gauffre.  ";
   } else if (globalAvg >= 7) {
     globalTag = "Tu es un peu guez, on donne ton nom pour un move nul.";
