@@ -101,7 +101,7 @@ const config = {
           { label: "Je peux jouer plusieurs archétypes, un peu touche à tout.", delta:+2, image:"img/respect.png" },
           { label: "Je maîtrise qu'un seul archétype, si y'a pas d'electric ça dégage !", delta:+1, image:"img/mishimas.png" },
           { label: "Loyaliste, je reste fidèle Doryah !",                        delta: 0, image:"img/salute.png" },
-		  { label: "Je change tous le temps je n'en maîtrise aucun...",                        delta: -3, image:"img/placeholder.png" },
+		  { label: "Je change tous le temps je n'en maîtrise aucun...",                        delta: -3, image:"img/gmt.gif" },
         ],
       },
       {
@@ -529,11 +529,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   // Propreté
   const clean = themeScores25.cleanliness;
   let cleanText;
-  if (clean >= 18) {
+  if (clean >= 21) {
     cleanText = "Hygiène impeccable fidèle disciple de Fabio Lanzoni.";
-  } else if (clean >= 12) {
+  } else if (clean >= 14) {
     cleanText = "Globalement propre, même si quelques bières traînent entre deux sessions tu es normal.";
-  } else if (clean >= 6) {
+  } else if (clean >= 7) {
     cleanText = "Ton environnement commence à sentir le zgeg.";
   } else {
     cleanText = "Ton environnement pue tout simplement sa grand mère.";
@@ -543,11 +543,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   // Style de jeu
   const play = themeScores25.playstyle;
   let playText;
-  if (play >= 18) {
+  if (play >= 21) {
     playText = "Ton style de jeu est clean, neutral carré comme le nord de la Corée.";
-  } else if (play >= 12) {
+  } else if (play >= 14) {
     playText = "Style correct, mélange de neutral et de petits piffs assumés.";
-  } else if (play >= 6) {
+  } else if (play >= 7) {
     playText = "Tu vis dangereusement entre gimmicks et snake edge douteux.";
   } else {
     playText = "Tout est potentiellement hopkickable, imblocables et nutellable, même Chad Muerte est choqué devant ton jeu.";
@@ -557,11 +557,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   // Rage
   const rage = themeScores25.rage;
   let rageText;
-  if (rage >= 18) {
+  if (rage >= 21) {
     rageText = "Mental d’acier, même après 3 perfects, très belle b*te.";
-  } else if (rage >= 12) {
+  } else if (rage >= 14) {
     rageText = "Tu tilt un peu, mais que contre le jeu donc ça va le kho bendero.";
-  } else if (rage >= 6) {
+  } else if (rage >= 7) {
     rageText = "Le sel commence à couler, le blocklist chauffe vite.";
   } else {
     rageText = "MisterJeux est un moine à côté de toi, plugs, insultes et blockédex complété plusieurs fois.";
@@ -571,11 +571,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   // Bienveillance
   const kind = themeScores25.kindness;
   let kindText;
-  if (kind >= 18) {
+  if (kind >= 21) {
     kindText = "Bienveillance max, tu coaches les nouveaux et tu fais vivre la commu, tié un bon.";
-  } else if (kind >= 12) {
+  } else if (kind >= 14) {
     kindText = "Plutôt chill, parfois taquin mais rarement méchant.";
-  } else if (kind >= 6) {
+  } else if (kind >= 7) {
     kindText = "Tu fanes gentillement les cavouilles.";
   } else {
     kindText = "T'es un gros clébard.";
@@ -585,11 +585,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
   // Intelligence
   const intel = themeScores25.intellect;
   let intelText;
-  if (intel >= 18) {
+  if (intel >= 21) {
     intelText = "Connaissance du jeu monstrueuse, tu parles frame data mieux que ta langue natale.";
-  } else if (intel >= 12) {
+  } else if (intel >= 14) {
     intelText = "Bon sens du jeu, tu connais les fondamentaux, tu ne te fais pas mix par Mathieu avec 4,4.";
-  } else if (intel >= 6) {
+  } else if (intel >= 7) {
     intelText = "Tu es imprévisible, même toi tu ne sais pas ce que tu fais.";
   } else {
     intelText = "T'arrives comme SDM dans son bolide allemand t'es fort pour dire de la merde, pas pour jouer à Tekken";
@@ -598,11 +598,11 @@ function buildGlobalDescription(themeScores25, globalAvg) {
 
   // Phrase globale
   let globalTag;
-  if (globalAvg >= 18) {
+  if (globalAvg >= 21) {
     globalTag = "Tu es un joueur complet, redoutable mais clean, un bijou de la communauté.";
-  } else if (globalAvg >= 12) {
+  } else if (globalAvg >= 14) {
     globalTag = "Tu fais parler de toi, en bien ou en mal, on te connait pour ta \"spéciale\" postule chez les Suce Mange Gauffre.  ";
-  } else if (globalAvg >= 6) {
+  } else if (globalAvg >= 7) {
     globalTag = "Tu es un peu guez, on donne ton nom pour un move nul.";
   } else {
     globalTag = "Tu es le fond de cuve, ta présence flingue l'ambiance en 10frames.";
